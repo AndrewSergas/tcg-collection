@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Monkey.D.Luffy",
+    "rarity": "Leader",
+    "setName": "Starter Deck",
+    "setCode": "ST01",
+    "cardNumber": "ST01-001",
+    "quantity": 1,
+    "condition": "Near Mint",
+    "language": "English",
+    "cardType": "Leader",
+    "colors": ["Red"],
+    "power": 5000,
+    "attribute": "Slash",
+    "types": ["Straw Hat Crew"],
+    "effect": "[DON!! x1] [When Attacking] Give up to 1 of your Leader or Character cards +1000 power during this battle.",
+    "life": "4"
+  },
+  {
+    "name": "Roronoa.Zoro",
+    "rarity": "Super Rare",
+    "setName": "Starter Deck",
+    "setCode": "ST01",
+    "cardNumber": "ST01-013",
+    "quantity": 2,
+    "condition": "Near Mint",
+    "language": "English",
+    "cardType": "Character",
+    "colors": ["Red"],
+    "cost": 4,
+    "power": 5000,
+    "counter": 1000,
+    "attribute": "Slash",
+    "types": ["Straw Hat Crew"],
+    "effect": "[On Play] K.O. up to 1 of your opponent's Characters with 3000 power or less."
+  }
+]
+

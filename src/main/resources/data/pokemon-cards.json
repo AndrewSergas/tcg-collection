@@ -1,0 +1,66 @@
+[
+  {
+    "name": "Pikachu",
+    "rarity": "Common",
+    "setName": "Base Set",
+    "setCode": "BS",
+    "cardNumber": "58",
+    "quantity": 3,
+    "condition": "Near Mint",
+    "language": "English",
+    "pokemonType": "Basic",
+    "types": ["Lightning"],
+    "hp": "60",
+    "attacks": [
+      {
+        "name": "Thunder Shock",
+        "cost": ["Lightning"],
+        "damage": "10",
+        "text": "Flip a coin. If heads, the Defending Pokémon is now Paralyzed."
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Fighting",
+        "value": "×2"
+      }
+    ],
+    "retreatCost": "1"
+  },
+  {
+    "name": "Charizard",
+    "rarity": "Rare Holo",
+    "setName": "Base Set",
+    "setCode": "BS",
+    "cardNumber": "4",
+    "quantity": 1,
+    "condition": "Lightly Played",
+    "language": "English",
+    "pokemonType": "Stage 2",
+    "types": ["Fire"],
+    "hp": "120",
+    "evolvedFrom": "Charmeleon",
+    "attacks": [
+      {
+        "name": "Fire Blast",
+        "cost": ["Fire", "Fire", "Fire", "Fire"],
+        "damage": "100",
+        "text": "Discard 1 Fire Energy attached to Charizard."
+      }
+    ],
+    "weaknesses": [
+      {
+        "type": "Water",
+        "value": "×2"
+      }
+    ],
+    "resistances": [
+      {
+        "type": "Fighting",
+        "value": "-30"
+      }
+    ],
+    "retreatCost": "3"
+  }
+]
+

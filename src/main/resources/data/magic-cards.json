@@ -1,0 +1,45 @@
+[
+  {
+    "name": "Black Lotus",
+    "rarity": "Rare",
+    "setName": "Alpha",
+    "setCode": "LEA",
+    "cardNumber": "232",
+    "quantity": 1,
+    "condition": "Near Mint",
+    "language": "English",
+    "manaCost": "{0}",
+    "convertedManaCost": 0.0,
+    "type": "Artifact",
+    "types": ["Artifact"],
+    "text": "{T}, Sacrifice Black Lotus: Add three mana of any one color.",
+    "layout": "normal",
+    "isFoil": false,
+    "isReservedList": true,
+    "borderColor": "black",
+    "frameVersion": "1993"
+  },
+  {
+    "name": "Lightning Bolt",
+    "rarity": "Common",
+    "setName": "Alpha",
+    "setCode": "LEA",
+    "cardNumber": "161",
+    "quantity": 4,
+    "condition": "Near Mint",
+    "language": "English",
+    "manaCost": "{R}",
+    "convertedManaCost": 1.0,
+    "colors": ["Red"],
+    "colorIdentity": ["R"],
+    "type": "Instant",
+    "types": ["Instant"],
+    "text": "Lightning Bolt deals 3 damage to any target.",
+    "layout": "normal",
+    "isFoil": false,
+    "isReservedList": false,
+    "borderColor": "black",
+    "frameVersion": "1993"
+  }
+]
+

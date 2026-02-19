@@ -1,0 +1,41 @@
+[
+  {
+    "name": "Dark Magician",
+    "rarity": "Ultra Rare",
+    "setName": "Legend of Blue Eyes White Dragon",
+    "setCode": "LOB",
+    "cardNumber": "LOB-005",
+    "quantity": 2,
+    "condition": "Near Mint",
+    "language": "English",
+    "cardType": "Monster",
+    "monsterType": "Normal Monster",
+    "attribute": "DARK",
+    "level": 7,
+    "attack": 2500,
+    "defense": 2100,
+    "race": "Spellcaster",
+    "description": "The ultimate wizard in terms of attack and defense.",
+    "archetype": "Dark Magician",
+    "isBanned": false,
+    "isLimited": false,
+    "isSemiLimited": false
+  },
+  {
+    "name": "Mirror Force",
+    "rarity": "Super Rare",
+    "setName": "Metal Raiders",
+    "setCode": "MRD",
+    "cardNumber": "MRD-138",
+    "quantity": 1,
+    "condition": "Moderately Played",
+    "language": "English",
+    "cardType": "Trap",
+    "description": "When an opponent's monster declares an attack: Destroy all your opponent's Attack Position monsters.",
+    "frameType": "Normal",
+    "isBanned": false,
+    "isLimited": false,
+    "isSemiLimited": false
+  }
+]
+

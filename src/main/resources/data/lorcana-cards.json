@@ -1,0 +1,47 @@
+[
+  {
+    "name": "Mickey Mouse - Brave Little Tailor",
+    "rarity": "Legendary",
+    "setName": "The First Chapter",
+    "setCode": "TFC",
+    "cardNumber": "001",
+    "quantity": 1,
+    "condition": "Near Mint",
+    "language": "English",
+    "cardType": "Character",
+    "inkColors": ["Steel"],
+    "inkCost": 5,
+    "isInkable": true,
+    "strength": 3,
+    "willpower": 5,
+    "lore": 2,
+    "version": "Brave Little Tailor",
+    "classifications": ["Hero", "Knight"],
+    "abilities": "Bodyguard - This character may enter play exerted. An opposing character who challenges one of your characters must choose one with Bodyguard if able.",
+    "flavorText": "\"Giants are no problem!\"",
+    "franchiseTitle": "Mickey Mouse"
+  },
+  {
+    "name": "Elsa - Snow Queen",
+    "rarity": "Super Rare",
+    "setName": "The First Chapter",
+    "setCode": "TFC",
+    "cardNumber": "211",
+    "quantity": 2,
+    "condition": "Near Mint",
+    "language": "English",
+    "cardType": "Character",
+    "inkColors": ["Sapphire"],
+    "inkCost": 8,
+    "isInkable": true,
+    "strength": 4,
+    "willpower": 6,
+    "lore": 3,
+    "version": "Snow Queen",
+    "classifications": ["Hero", "Queen", "Sorcerer"],
+    "abilities": "Deep Freeze - When you play this character, exert up to 2 chosen opposing characters. They can't ready at the start of their next turn.",
+    "flavorText": "\"The cold never bothered me anyway.\"",
+    "franchiseTitle": "Frozen"
+  }
+]
+

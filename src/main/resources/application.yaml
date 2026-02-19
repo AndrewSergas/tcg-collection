@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: tcg-collection
+
+  mongodb:
+    host: localhost
+    port: 27018
+    database: tcg-collection
