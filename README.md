@@ -1,72 +1,52 @@
-# TCG Collection
+# TCG Collection - MongoDB Exercises
 
-Spring Boot application for managing TCG (Trading Card Game) collections.
+A Spring Boot application for learning MongoDB queries through a Trading Card Game collection.
 
-## Prerequisites
+## Setup
 
-- Java 25
-- Maven 3.x
-- Docker Desktop (for MongoDB)
-
-## Starting MongoDB Database
-
-To start the MongoDB database using Docker Compose:
-
+### Start MongoDB
 ```bash
 docker-compose up -d
 ```
 
-This command will:
-- Download the MongoDB image (if not already present)
-- Start a MongoDB container on port 27018
-- Create a persistent volume for data
-- Configure the `tcg-collection` database
+This starts MongoDB on port 27018 with the database `tcg-collection`.
 
-To stop the database:
+### Run the Application
 
-```bash
-docker-compose down
-```
+Open the project in IntelliJ and run `TcgCollectionApplication`. The app starts on port 8080 and loads sample data automatically.
 
-To stop and remove data as well:
+## Exercises
 
-```bash
-docker-compose down -v
-```
+The project contains 15 MongoDB query exercises across different TCG games:
+- Pokémon (3)
+- Yu-Gi-Oh! (3)
+- Magic: The Gathering (3)
+- One Piece (2)
+- Lorcana (2)
+- Aggregations (2)
 
-## Starting the Application
+See `EXERCISES.md` for details.
 
-1. Open the project in IntelliJ IDEA
-2. Locate the main class `TcgCollectionApplication.java` in the project explorer
-3. Right-click on the class and select "Run 'TcgCollectionApplication'"
-4. Alternatively, open the class and click the green play button in the gutter next to the `main` method
+## API Endpoints
 
-The application will start and automatically populate the database with sample TCG cards from the JSON files in `src/main/resources/data/`.
+Test your queries using these endpoints:
 
+- `/api/pokemon` - Pokémon cards
+- `/api/yugioh` - Yu-Gi-Oh! cards
+- `/api/magic` - Magic cards
+- `/api/onepiece` - One Piece cards
+- `/api/lorcana` - Lorcana cards
+- `/api/aggregations` - Advanced aggregation queries
 
-## Configuration
+Each has subpaths for specific queries (see controllers or EXERCISES.md).
 
-Database configuration is located in `src/main/resources/application.yaml`:
-- Host: localhost
-- Port: 27018
-- Database: tcg-collection
+## Project Structure
 
-## Main Dependencies
+- **repositories/** - Implement your MongoDB queries here
+- **services/** - Business logic (already implemented)
+- **controllers/** - REST endpoints (already implemented)
+- **entities/** - Card data models
+- **resources/data/** - Sample JSON data files
 
-- Spring Boot 4.0.2
-- Spring Data MongoDB
-- Lombok
-- Spring Boot DevTools
-
-## Card Collections
-
-The application manages collections for the following TCG games:
-- **Pokémon** (`pokemon_cards`)
-- **Yu-Gi-Oh!** (`yugioh_cards`)
-- **Magic: The Gathering** (`magic_cards`)
-- **One Piece Card Game** (`onepiece_cards`)
-- **Disney Lorcana** (`lorcana_cards`)
-
-Sample data is loaded from JSON files in `src/main/resources/data/` on application startup.
 
 
