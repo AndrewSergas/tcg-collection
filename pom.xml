@@ -12,7 +12,7 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>it.finconsgroup</groupId>
+    <groupId>it.sergas.andrea</groupId>
     <artifactId>tcg-collection</artifactId>
     <version>1.0.0</version>
     <name>tcg-collection</name>
@@ -73,6 +73,11 @@
         <!-- ************************************************ -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-mongodb-test</artifactId>
             <scope>test</scope>
         </dependency>
@@ -116,5 +121,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

@@ -1,5 +1,43 @@
 # MongoDB Exercises
 
+## Documentation
+
+- [MongoDB Query Operators](https://www.mongodb.com/docs/manual/reference/operator/query/)
+- [MongoDB Aggregation Pipeline](https://www.mongodb.com/docs/manual/core/aggregation-pipeline/)
+- [Spring Data MongoDB - Query Methods](https://docs.spring.io/spring-data/mongodb/reference/mongodb/repositories/query-methods.html)
+- [Spring Data MongoDB - Aggregations](https://docs.spring.io/spring-data/mongodb/reference/mongodb/aggregation-framework.html)
+
+## Common Operators
+
+**Comparison**
+- `{field: value}` - exact match
+- `{field: {$gt: value}}` - greater than
+- `{field: {$lt: value}}` - less than
+- `{field: {$gte: value}}` - greater than or equal
+- `{field: {$lte: value}}` - less than or equal
+
+**Logical**
+- `{$and: [{}, {}]}` - AND
+- `{$or: [{}, {}]}` - OR
+
+**Element**
+- `{field: {$exists: true}}` - field exists
+- `{field: {$ne: value}}` - not equal
+
+**Evaluation**
+- `{field: {$regex: pattern, $options: 'i'}}` - regex match
+- `{$expr: {$gt: ['$field1', '$field2']}}` - compare fields
+
+**Array**
+- `{arrayField: value}` - array contains value
+
+**Tips**
+- Use `?0`, `?1` for method parameters
+- In `$expr`, prefix field names with `$`
+- MongoDB automatically matches array elements
+
+---
+
 ## Pokémon
 
 ### 1. Find by Rarity
@@ -92,7 +130,7 @@ Find cards where defense > attack. Use `$expr` to compare two fields.
 <summary>Solution</summary>
 
 ```java
-@Query("{$expr: {$gt: ['$defense', '$attack']}}")
+@Query("{'$expr': {'$gt': ['$defense', '$attack']}}")
 ```
 </details>
 
@@ -207,29 +245,26 @@ Case-insensitive text search using regex.
 
 ## Aggregations
 
-### 14. Count Cards by Rarity Across All Collections
-`AggregationRepository.countCardsByRarityAcrossAllCollections()`
+### 14. Count Yu-Gi-Oh! Cards by Type
+`AggregationRepository.countYugiohCardsByType()`
 
-Use `$unionWith` to combine all collections, then group by rarity.
+Group Yu-Gi-Oh! cards by card type (Monster, Spell, Trap) and count them, then sort by count.
 
-**Test:** `GET /api/aggregations/cards-by-rarity`
+**Test:** `GET /api/aggregations/yugioh-cards-by-type`
 
 <details>
 <summary>Solution</summary>
 
 ```java
-public List<RarityCount> countCardsByRarityAcrossAllCollections() {
+public List<TypeCount> countYugiohCardsByType() {
     val aggregation = Aggregation.newAggregation(
-        Aggregation.unionWith("yugioh_cards"),
-        Aggregation.unionWith("magic_cards"),
-        Aggregation.unionWith("onepiece_cards"),
-        Aggregation.unionWith("lorcana_cards"),
-        Aggregation.group("rarity").count().as("count"),
-        Aggregation.project().and("_id").as("rarity").and("count").as("count")
+        Aggregation.group("cardType").count().as("count"),
+        Aggregation.project().and("_id").as("type").and("count").as("count"),
+        Aggregation.sort(Sort.Direction.DESC, "count")
     );
     
     return mongoTemplate
-            .aggregate(aggregation, "pokemon_cards", RarityCount.class)
+            .aggregate(aggregation, "yugioh_cards", TypeCount.class)
             .getMappedResults();
 }
 ```
@@ -292,33 +327,3 @@ public List<PokemonTypeStats> getPokemonStatsByType() {
 </details>
 
 ---
-
-## Common Operators
-
-**Comparison**
-- `{field: value}` - exact match
-- `{field: {$gt: value}}` - greater than
-- `{field: {$lt: value}}` - less than
-- `{field: {$gte: value}}` - greater than or equal
-- `{field: {$lte: value}}` - less than or equal
-
-**Logical**
-- `{$and: [{}, {}]}` - AND
-- `{$or: [{}, {}]}` - OR
-
-**Element**
-- `{field: {$exists: true}}` - field exists
-- `{field: {$ne: value}}` - not equal
-
-**Evaluation**
-- `{field: {$regex: pattern, $options: 'i'}}` - regex match
-- `{$expr: {$gt: ['$field1', '$field2']}}` - compare fields
-
-**Array**
-- `{arrayField: value}` - array contains value
-
-**Tips**
-- Use `?0`, `?1` for method parameters
-- In `$expr`, prefix field names with `$`
-- MongoDB automatically matches array elements
-

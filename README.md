@@ -2,30 +2,37 @@
 
 A Spring Boot application for learning MongoDB queries through a Trading Card Game collection.
 
+## Prerequisites
+
+- Java 25 or higher
+- MongoDB installed and running locally on port 27017
+- IntelliJ IDEA
+
 ## Setup
 
 ### Start MongoDB
-```bash
-docker-compose up -d
-```
 
-This starts MongoDB on port 27018 with the database `tcg-collection`.
+Make sure MongoDB is running locally on the default port 27017. The application expects:
+- **Host:** localhost
+- **Port:** 27017
+- **Database:** tcg-collection (created automatically)
 
 ### Run the Application
 
-Open the project in IntelliJ and run `TcgCollectionApplication`. The app starts on port 8080 and loads sample data automatically.
+1. Open the project in IntelliJ IDEA
+2. Run the `TcgCollectionApplication` class
+3. The application starts on port 8080 and loads sample data automatically
 
-## Exercises
+### Run Tests
 
-The project contains 15 MongoDB query exercises across different TCG games:
-- Pokémon (3)
-- Yu-Gi-Oh! (3)
-- Magic: The Gathering (3)
-- One Piece (2)
-- Lorcana (2)
-- Aggregations (2)
+Tests connect to MongoDB on localhost:27017 using a separate test database (`tcg-collection-test`). Make sure MongoDB is running before executing tests.
 
-See `EXERCISES.md` for details.
+Run tests from IntelliJ or use Maven:
+
+```bash
+./mvnw test
+```
+
 
 ## API Endpoints
 
