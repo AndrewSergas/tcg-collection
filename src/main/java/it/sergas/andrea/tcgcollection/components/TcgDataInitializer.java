@@ -13,6 +13,7 @@ import lombok.val;
 import org.bson.types.ObjectId;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.ObjectMapper;
@@ -25,6 +26,7 @@ import java.util.List;
  */
 @Slf4j
 @Component
+@Profile("!test")
 @RequiredArgsConstructor
 public class TcgDataInitializer {
 

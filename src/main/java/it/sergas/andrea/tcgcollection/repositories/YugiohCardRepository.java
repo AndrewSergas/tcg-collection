@@ -21,7 +21,7 @@ public interface YugiohCardRepository
      * @param cardType the card type to search for
      * @return list of Yu-Gi-Oh! cards with the specified card type
      */
-    @Query("{}") // TODO: implement me
+    @Query("{ cardType : ?0 }")
     List<YugiohCard> findByCardType(String cardType);
 
     /**
@@ -30,7 +30,7 @@ public interface YugiohCardRepository
      * @param attack the minimum attack value
      * @return list of Yu-Gi-Oh! cards with attack greater than the specified value
      */
-    @Query("{}") // TODO: implement me
+    @Query("{ attack: { $gt: ?0 } }")
     List<YugiohCard> findByAttackGreaterThan(int attack);
 
     /**
@@ -38,6 +38,6 @@ public interface YugiohCardRepository
      *
      * @return list of Yu-Gi-Oh! cards with defense greater than attack
      */
-    @Query("{}") // TODO: implement me
+    @Query("{ $expr: { $gt: [ '$defense', '$attack' ] } }")
     List<YugiohCard> findCardsWithDefenseGreaterThanAttack();
 }

@@ -1,0 +1,118 @@
+package it.sergas.andrea.tcgcollection.controllers;
+
+import it.sergas.andrea.tcgcollection.fixtures.YugiohCardDTOFixtures;
+import it.sergas.andrea.tcgcollection.services.YugiohCardService;
+import lombok.val;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.List;
+
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+@ActiveProfiles("test")
+@DisplayName("YugiohCardController Tests")
+class YugiohCardControllerTest {
+
+    @Autowired private MockMvc mockMvc;
+    @MockitoBean private YugiohCardService service;
+
+    @Test
+    @DisplayName("Should get all cards")
+    void shouldGetAllCards() throws Exception {
+        val dto = YugiohCardDTOFixtures.darkMagician();
+        when(service.findAll()).thenReturn(List.of(dto));
+
+        mockMvc.perform(get("/api/yugioh"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].name").value("Dark Magician"))
+                .andExpect(jsonPath("$[0].cardType").value("Monster"));
+    }
+
+    @Test
+    @DisplayName("Should return empty list when no cards")
+    void shouldReturnEmptyListWhenNoCards() throws Exception {
+        when(service.findAll()).thenReturn(List.of());
+
+        mockMvc.perform(get("/api/yugioh"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isEmpty());
+    }
+
+    @Test
+    @DisplayName("Should find cards by card type")
+    void shouldFindCardsByCardType() throws Exception {
+        val dto = YugiohCardDTOFixtures.darkMagician();
+        when(service.findByCardType("Monster")).thenReturn(List.of(dto));
+
+        mockMvc.perform(get("/api/yugioh/card-type/Monster"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].name").value("Dark Magician"))
+                .andExpect(jsonPath("$[0].cardType").value("Monster"));
+    }
+
+    @Test
+    @DisplayName("Should return empty list for non-existent card type")
+    void shouldReturnEmptyListForNonExistentCardType() throws Exception {
+        when(service.findByCardType("Ritual")).thenReturn(List.of());
+
+        mockMvc.perform(get("/api/yugioh/card-type/Ritual"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isEmpty());
+    }
+
+    @Test
+    @DisplayName("Should find cards by attack greater than")
+    void shouldFindCardsByAttackGreaterThan() throws Exception {
+        val dto = YugiohCardDTOFixtures.blueEyesWhiteDragon();
+        when(service.findByAttackGreaterThan(2000)).thenReturn(List.of(dto));
+
+        mockMvc.perform(get("/api/yugioh/attack-greater-than/2000"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].name").value("Blue-Eyes White Dragon"))
+                .andExpect(jsonPath("$[0].attack").value(3000));
+    }
+
+    @Test
+    @DisplayName("Should return empty list when no cards with attack greater than")
+    void shouldReturnEmptyListWhenNoCardsByAttackGreaterThan() throws Exception {
+        when(service.findByAttackGreaterThan(9999)).thenReturn(List.of());
+
+        mockMvc.perform(get("/api/yugioh/attack-greater-than/9999"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isEmpty());
+    }
+
+    @Test
+    @DisplayName("Should find cards with defense greater than attack")
+    void shouldFindCardsWithDefenseGreaterThanAttack() throws Exception {
+        val dto = YugiohCardDTOFixtures.wallOfIllusion();
+        when(service.findCardsWithDefenseGreaterThanAttack()).thenReturn(List.of(dto));
+
+        mockMvc.perform(get("/api/yugioh/defense-greater-than-attack"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].name").value("Wall of Illusion"))
+                .andExpect(jsonPath("$[0].defense").value(1850));
+    }
+
+    @Test
+    @DisplayName("Should return empty list when no cards with defense greater than attack")
+    void shouldReturnEmptyListWhenNoCardsWithDefenseGreaterThanAttack() throws Exception {
+        when(service.findCardsWithDefenseGreaterThanAttack()).thenReturn(List.of());
+
+        mockMvc.perform(get("/api/yugioh/defense-greater-than-attack"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isEmpty());
+    }
+}

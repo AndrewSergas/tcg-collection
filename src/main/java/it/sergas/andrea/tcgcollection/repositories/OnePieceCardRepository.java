@@ -21,7 +21,7 @@ public interface OnePieceCardRepository
      * @param color the color to search for
      * @return list of One Piece cards with the specified color
      */
-    @Query("{}") // TODO: implement me
+    @Query("{ colors : ?0 }")
     List<OnePieceCard> findByColor(String color);
 
     /**
@@ -30,6 +30,6 @@ public interface OnePieceCardRepository
      * @param power the minimum power value
      * @return list of One Piece cards with power greater than the specified value
      */
-    @Query("{}") // TODO: implement me
+    @Query("{ power: { $gt: ?0 } }")
     List<OnePieceCard> findByPowerGreaterThan(int power);
 }

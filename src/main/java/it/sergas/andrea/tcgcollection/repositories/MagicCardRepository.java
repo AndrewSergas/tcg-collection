@@ -21,7 +21,7 @@ public interface MagicCardRepository
      * @param type the card type to search for
      * @return list of Magic cards with the specified type
      */
-    @Query("{}") // TODO: implement me
+    @Query("{ type: ?0 }")
     List<MagicCard> findByType(String type);
 
     /**
@@ -30,7 +30,7 @@ public interface MagicCardRepository
      * @param color the color to search for
      * @return list of Magic cards with the specified color
      */
-    @Query("{}") // TODO: implement me
+    @Query("{ colors: ?0 }")
     List<MagicCard> findByColor(String color);
 
     /**
@@ -39,6 +39,6 @@ public interface MagicCardRepository
      * @param keyword the keyword to search for in card text
      * @return list of Magic cards containing the keyword
      */
-    @Query("{}") // TODO: implement me
+    @Query("{ text: { $regex: ?0, $options: 'i' } }")
     List<MagicCard> findByTextContaining(String keyword);
 }

@@ -21,7 +21,7 @@ public interface PokemonCardRepository
      * @param rarity the rarity to search for
      * @return list of Pokémon cards with the specified rarity
      */
-    @Query("{}") // TODO: implement me
+    @Query("{ rarity: ?0 }")
     List<PokemonCard> findByRarity(String rarity);
 
     /**
@@ -30,7 +30,7 @@ public interface PokemonCardRepository
      * @param type the type to search for
      * @return list of Pokémon cards with the specified type
      */
-    @Query("{}") // TODO: implement me
+    @Query("{ types: ?0 }")
     List<PokemonCard> findByType(String type);
 
     /**
@@ -38,6 +38,6 @@ public interface PokemonCardRepository
      *
      * @return list of Pokémon cards with attacks
      */
-    @Query("{}") // TODO: implement me
+    @Query("{ attacks: { $exists: true, $ne: [] } }")
     List<PokemonCard> findCardsWithAttacks();
 }

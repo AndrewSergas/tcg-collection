@@ -21,7 +21,7 @@ public interface LorcanaCardRepository
      * @param inkColor the ink color to search for
      * @return list of Lorcana cards with the specified ink color
      */
-    @Query("{}") // TODO: implement me
+    @Query("{ inkColors : ?0 }")
     List<LorcanaCard> findByInkColor(String inkColor);
 
     /**
@@ -30,6 +30,6 @@ public interface LorcanaCardRepository
      * @param franchiseTitle the franchise title to search for
      * @return list of Lorcana cards with the specified franchise title
      */
-    @Query("{}") // TODO: implement me
+    @Query("{ franchiseTitle : ?0 }")
     List<LorcanaCard> findByFranchiseTitle(String franchiseTitle);
 }
