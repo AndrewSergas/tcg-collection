@@ -6,26 +6,60 @@ A Spring Boot application for learning MongoDB queries through a Trading Card Ga
 
 - Java 25 or higher
 - MongoDB installed and running locally on port 27017
-- IntelliJ IDEA
 
 ## Setup
 
-### Start MongoDB
+### 1. Start MongoDB
 
 Make sure MongoDB is running locally on the default port 27017. The application expects:
 - **Host:** localhost
 - **Port:** 27017
-- **Database:** tcg-collection (created automatically)
+- **Database:** `tcg-collection`
 
-### Run the Application
+### 2. Run the Application
 
-1. Open the project in IntelliJ IDEA
-2. Run the `TcgCollectionApplication` class
-3. The application starts on port 8080 and loads sample data automatically
+#### Option A — Maven wrapper (recommended, works with any IDE)
 
-### Run Tests
+```bash
+./mvnw spring-boot:run
+```
 
-Tests connect to MongoDB on localhost:27017 using a separate test database (`tcg-collection-test`). Make sure MongoDB is running before executing tests.
+#### Option B — IntelliJ IDEA (Community & Ultimate)
+
+IntelliJ IDEA **Community Edition** does not include the Spring Boot plugin, so there is no
+dedicated Spring Boot run configuration. You can still run the application by creating a
+standard **Application** run configuration:
+
+1. Open the project in IntelliJ IDEA and wait for the Maven import to complete
+2. Go to **Run → Edit Configurations… → + → Application**
+3. Set the following fields:
+    - **Name:** `TcgCollectionApplication`
+    - **Module / classpath:** `tcg-collection`
+    - **Main class:** `it.sergas.andrea.tcgcollection.TcgCollectionApplication`
+4. Click **Apply → OK**, then run it with the green ▶ button
+
+> **Tip:** Make sure annotation processing is enabled
+> (**Settings → Build → Compiler → Annotation Processors → Enable annotation processing**),
+> otherwise Lombok and MapStruct will not work correctly.
+
+#### Option C — Executable JAR
+
+```bash
+./mvnw clean package -DskipTests
+java -jar target/tcg-collection-1.0.0.jar
+```
+
+### 3. Initial Data Loading
+
+The database and its collections are created **automatically on the first application startup**.
+A component (`TcgDataInitializer`) checks each collection: if it is empty, it loads the
+corresponding sample data from `src/main/resources/data/*.json`. There is no need to manually
+import data or create collections in MongoDB.
+
+### 4. Run Tests
+
+Tests connect to MongoDB on localhost:27017 using a separate test database (`tcg-collection-test`).
+Make sure MongoDB is running before executing tests.
 
 Run tests from IntelliJ or use Maven:
 
