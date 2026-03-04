@@ -51,7 +51,7 @@ Find all cards with a specific rarity.
 <summary>Solution</summary>
 
 ```java
-@Query("{'rarity': ?0}")
+@Query("{ rarity: ?0 }")
 ```
 </details>
 
@@ -66,7 +66,7 @@ Find cards containing a specific type in their array.
 <summary>Solution</summary>
 
 ```java
-@Query("{'types': ?0}")
+@Query("{ types: ?0 }")
 ```
 </details>
 
@@ -81,11 +81,11 @@ Find cards where the attacks array exists and is not empty.
 <summary>Solution</summary>
 
 ```java
-@Query("{'attacks': {$exists: true, $ne: []}}")
+@Query("{ attacks: { $exists: true, $ne: [] } }")
 ```
 </details>
 
----
+---~~~~
 
 ## Yu-Gi-Oh!
 
@@ -100,7 +100,7 @@ Find cards by type (Monster, Spell, Trap).
 <summary>Solution</summary>
 
 ```java
-@Query("{'cardType': ?0}")
+@Query("{ cardType : ?0 }")
 ```
 </details>
 
@@ -115,7 +115,7 @@ Find cards with attack points greater than a value.
 <summary>Solution</summary>
 
 ```java
-@Query("{'attack': {$gt: ?0}}")
+@Query("{ attack: { $gt: ?0 } }")
 ```
 </details>
 
@@ -130,7 +130,7 @@ Find cards where defense > attack. Use `$expr` to compare two fields.
 <summary>Solution</summary>
 
 ```java
-@Query("{'$expr': {'$gt': ['$defense', '$attack']}}")
+@Query("{ $expr: { $gt: [ $defense, $attack ] } }")
 ```
 </details>
 
@@ -147,7 +147,7 @@ Find cards where defense > attack. Use `$expr` to compare two fields.
 <summary>Solution</summary>
 
 ```java
-@Query("{'type': ?0}")
+@Query("{ type: ?0 }")
 ```
 </details>
 
@@ -162,7 +162,7 @@ Find cards containing a specific color.
 <summary>Solution</summary>
 
 ```java
-@Query("{'colors': ?0}")
+@Query("{ colors: ?0 }")
 ```
 </details>
 
@@ -177,7 +177,7 @@ Case-insensitive text search using regex.
 <summary>Solution</summary>
 
 ```java
-@Query("{'text': {$regex: ?0, $options: 'i'}}")
+@Query("{ text: { $regex: ?0, $options: i } }")
 ```
 </details>
 
@@ -194,7 +194,7 @@ Case-insensitive text search using regex.
 <summary>Solution</summary>
 
 ```java
-@Query("{'colors': ?0}")
+@Query("{ colors : ?0 }")
 ```
 </details>
 
@@ -207,7 +207,7 @@ Case-insensitive text search using regex.
 <summary>Solution</summary>
 
 ```java
-@Query("{'power': {$gt: ?0}}")
+@Query("{ power: { $gt: ?0 } }")
 ```
 </details>
 
@@ -224,7 +224,7 @@ Case-insensitive text search using regex.
 <summary>Solution</summary>
 
 ```java
-@Query("{'inkColors': ?0}")
+@Query("{ inkColors : ?0 }")
 ```
 </details>
 
@@ -237,7 +237,7 @@ Case-insensitive text search using regex.
 <summary>Solution</summary>
 
 ```java
-@Query("{'franchiseTitle': ?0}")
+@Query("{ franchiseTitle : ?0 }")
 ```
 </details>
 
@@ -257,14 +257,15 @@ Group Yu-Gi-Oh! cards by card type (Monster, Spell, Trap) and count them, then s
 
 ```java
 public List<TypeCount> countYugiohCardsByType() {
-    val aggregation = Aggregation.newAggregation(
-        Aggregation.group("cardType").count().as("count"),
-        Aggregation.project().and("_id").as("type").and("count").as("count"),
-        Aggregation.sort(Sort.Direction.DESC, "count")
+    val pipeline = Aggregation.newAggregation(
+            Aggregation.group("cardType").count().as("count"),
+            Aggregation.addFields().addField("type").withValue("$_id").build(),
+            Aggregation.project("type", "count").andExclude("_id"),
+            Aggregation.sort(Sort.Direction.DESC, "count")
     );
-    
+
     return mongoTemplate
-            .aggregate(aggregation, "yugioh_cards", TypeCount.class)
+            .aggregate(pipeline, YugiohCard.class, TypeCount.class)
             .getMappedResults();
 }
 ```
