@@ -26,13 +26,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class MagicCardControllerTest {
 
     @Autowired private MockMvc mockMvc;
-    @MockitoBean private MagicCardService systemUnderTest;
+    @MockitoBean private MagicCardService service;
 
     @Test
     @DisplayName("getAllCards should return the Lightning Bolt card")
     void getAllCards_shouldReturnTheLightningBoltCard() throws Exception {
         val dto = MagicCardDTOFixtures.lightningBolt();
-        when(systemUnderTest.findAll()).thenReturn(List.of(dto));
+        when(service.findAll()).thenReturn(List.of(dto));
 
         mockMvc.perform(get("/api/magic"))
                 .andExpect(status().isOk())
@@ -43,7 +43,7 @@ class MagicCardControllerTest {
     @Test
     @DisplayName("getAllCards should return an empty list when no cards are found")
     void getAllCards_shouldReturnEmptyList_whenNoCardsAreFound() throws Exception {
-        when(systemUnderTest.findAll()).thenReturn(List.of());
+        when(service.findAll()).thenReturn(List.of());
 
         mockMvc.perform(get("/api/magic"))
                 .andExpect(status().isOk())
@@ -54,7 +54,7 @@ class MagicCardControllerTest {
     @DisplayName("findByType should find the Artifact type Black Lotus card")
     void findByType_shouldFindTheArtifactTypeBlackLotus() throws Exception {
         val dto = MagicCardDTOFixtures.blackLotus();
-        when(systemUnderTest.findByType("Artifact")).thenReturn(List.of(dto));
+        when(service.findByType("Artifact")).thenReturn(List.of(dto));
 
         mockMvc.perform(get("/api/magic/type/Artifact"))
                 .andExpect(status().isOk())
@@ -65,7 +65,7 @@ class MagicCardControllerTest {
     @Test
     @DisplayName("findByType should return an empty list when no cards are found by type")
     void findByType_shouldReturnEmptyList_whenNoCardsAreFoundByType() throws Exception {
-        when(systemUnderTest.findByType("Planeswalker")).thenReturn(List.of());
+        when(service.findByType("Planeswalker")).thenReturn(List.of());
 
         mockMvc.perform(get("/api/magic/type/Planeswalker"))
                 .andExpect(status().isOk())
@@ -76,7 +76,7 @@ class MagicCardControllerTest {
     @DisplayName("findByColor should find the Red color Lightning Bolt card")
     void findByColor_shouldFindTheRedColorLightningBolt() throws Exception {
         val dto = MagicCardDTOFixtures.lightningBolt();
-        when(systemUnderTest.findByColor("Red")).thenReturn(List.of(dto));
+        when(service.findByColor("Red")).thenReturn(List.of(dto));
 
         mockMvc.perform(get("/api/magic/color/Red"))
                 .andExpect(status().isOk())
@@ -87,7 +87,7 @@ class MagicCardControllerTest {
     @Test
     @DisplayName("findByColor should return an empty list when no cards are found by color")
     void findByColor_shouldReturnEmptyList_whenNoCardsAreFoundByColor() throws Exception {
-        when(systemUnderTest.findByColor("Purple")).thenReturn(List.of());
+        when(service.findByColor("Purple")).thenReturn(List.of());
 
         mockMvc.perform(get("/api/magic/color/Purple"))
                 .andExpect(status().isOk())
@@ -98,7 +98,7 @@ class MagicCardControllerTest {
     @DisplayName("findByTextContaining should find cards containing 'damage' text")
     void findByTextContaining_shouldFindCardsContainingDamageText() throws Exception {
         val dto = MagicCardDTOFixtures.lightningBolt();
-        when(systemUnderTest.findByTextContaining("damage")).thenReturn(List.of(dto));
+        when(service.findByTextContaining("damage")).thenReturn(List.of(dto));
 
         mockMvc.perform(get("/api/magic/text-contains/damage"))
                 .andExpect(status().isOk())
@@ -108,7 +108,7 @@ class MagicCardControllerTest {
     @Test
     @DisplayName("findByTextContaining should return an empty list when no cards are found by text")
     void findByTextContaining_shouldReturnEmptyList_whenNoCardsAreFoundByText() throws Exception {
-        when(systemUnderTest.findByTextContaining("nonexistent")).thenReturn(List.of());
+        when(service.findByTextContaining("nonexistent")).thenReturn(List.of());
 
         mockMvc.perform(get("/api/magic/text-contains/nonexistent"))
                 .andExpect(status().isOk())

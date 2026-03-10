@@ -26,13 +26,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class LorcanaCardControllerTest {
 
     @Autowired private MockMvc mockMvc;
-    @MockitoBean private LorcanaCardService systemUnderTest;
+    @MockitoBean private LorcanaCardService service;
 
     @Test
     @DisplayName("getAllCards should return the Elsa card")
     void getAllCards_shouldReturnTheElsaCard() throws Exception {
         val dto = LorcanaCardDTOFixtures.elsa();
-        when(systemUnderTest.findAll()).thenReturn(List.of(dto));
+        when(service.findAll()).thenReturn(List.of(dto));
 
         mockMvc.perform(get("/api/lorcana"))
                 .andExpect(status().isOk())
@@ -43,7 +43,7 @@ class LorcanaCardControllerTest {
     @Test
     @DisplayName("getAllCards should return an empty list when no cards are found")
     void getAllCards_shouldReturnEmptyList_whenNoCardsAreFound() throws Exception {
-        when(systemUnderTest.findAll()).thenReturn(List.of());
+        when(service.findAll()).thenReturn(List.of());
 
         mockMvc.perform(get("/api/lorcana"))
                 .andExpect(status().isOk())
@@ -54,7 +54,7 @@ class LorcanaCardControllerTest {
     @DisplayName("findByInkColor should find the Steel ink Mickey card")
     void findByInkColor_shouldFindTheSteelInkMickey() throws Exception {
         val dto = LorcanaCardDTOFixtures.mickey();
-        when(systemUnderTest.findByInkColor("Steel")).thenReturn(List.of(dto));
+        when(service.findByInkColor("Steel")).thenReturn(List.of(dto));
 
         mockMvc.perform(get("/api/lorcana/ink-color/Steel"))
                 .andExpect(status().isOk())
@@ -65,7 +65,7 @@ class LorcanaCardControllerTest {
     @Test
     @DisplayName("findByInkColor should return an empty list when no cards are found by ink color")
     void findByInkColor_shouldReturnEmptyList_whenNoCardsAreFoundByInkColor() throws Exception {
-        when(systemUnderTest.findByInkColor("Ruby")).thenReturn(List.of());
+        when(service.findByInkColor("Ruby")).thenReturn(List.of());
 
         mockMvc.perform(get("/api/lorcana/ink-color/Ruby"))
                 .andExpect(status().isOk())
@@ -76,7 +76,7 @@ class LorcanaCardControllerTest {
     @DisplayName("findByFranchiseTitle should find the Frozen franchise Elsa card")
     void findByFranchiseTitle_shouldFindTheFrozenFranchiseElsa() throws Exception {
         val dto = LorcanaCardDTOFixtures.elsa();
-        when(systemUnderTest.findByFranchiseTitle("Frozen")).thenReturn(List.of(dto));
+        when(service.findByFranchiseTitle("Frozen")).thenReturn(List.of(dto));
 
         mockMvc.perform(get("/api/lorcana/franchise/Frozen"))
                 .andExpect(status().isOk())
@@ -87,7 +87,7 @@ class LorcanaCardControllerTest {
     @Test
     @DisplayName("findByFranchiseTitle should return an empty list when no cards are found by franchise title")
     void findByFranchiseTitle_shouldReturnEmptyList_whenNoCardsAreFoundByFranchiseTitle() throws Exception {
-        when(systemUnderTest.findByFranchiseTitle("Aladdin")).thenReturn(List.of());
+        when(service.findByFranchiseTitle("Aladdin")).thenReturn(List.of());
 
         mockMvc.perform(get("/api/lorcana/franchise/Aladdin"))
                 .andExpect(status().isOk())

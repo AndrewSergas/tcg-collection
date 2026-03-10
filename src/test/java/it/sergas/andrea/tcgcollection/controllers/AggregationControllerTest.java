@@ -27,13 +27,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class AggregationControllerTest {
 
     @Autowired private MockMvc mockMvc;
-    @MockitoBean private AggregationService systemUnderTest;
+    @MockitoBean private AggregationService service;
 
     @Test
     @DisplayName("countYugiohCardsByType should count Monster type cards")
     void countYugiohCardsByType_shouldCountMonsterTypeCards() throws Exception {
         val typeCount = TypeCount.builder().type("Monster").count(5L).build();
-        when(systemUnderTest.countYugiohCardsByType()).thenReturn(List.of(typeCount));
+        when(service.countYugiohCardsByType()).thenReturn(List.of(typeCount));
 
         mockMvc.perform(get("/api/aggregations/yugioh-cards-by-type"))
                 .andExpect(status().isOk())
@@ -44,7 +44,7 @@ class AggregationControllerTest {
     @Test
     @DisplayName("countYugiohCardsByType should return an empty list when no yugioh cards are found")
     void countYugiohCardsByType_shouldReturnEmptyList_whenNoYugiohCardsAreFound() throws Exception {
-        when(systemUnderTest.countYugiohCardsByType()).thenReturn(List.of());
+        when(service.countYugiohCardsByType()).thenReturn(List.of());
 
         mockMvc.perform(get("/api/aggregations/yugioh-cards-by-type"))
                 .andExpect(status().isOk())
@@ -61,7 +61,7 @@ class AggregationControllerTest {
                 .maxAttacks(2)
                 .build();
 
-        when(systemUnderTest.getPokemonStatsByType()).thenReturn(List.of(stats));
+        when(service.getPokemonStatsByType()).thenReturn(List.of(stats));
 
         mockMvc.perform(get("/api/aggregations/pokemon-stats-by-type"))
                 .andExpect(status().isOk())
@@ -74,7 +74,7 @@ class AggregationControllerTest {
     @Test
     @DisplayName("getPokemonStatsByType should return an empty list when no pokemon stats are found")
     void getPokemonStatsByType_shouldReturnEmptyList_whenNoPokemonStatsAreFound() throws Exception {
-        when(systemUnderTest.getPokemonStatsByType()).thenReturn(List.of());
+        when(service.getPokemonStatsByType()).thenReturn(List.of());
 
         mockMvc.perform(get("/api/aggregations/pokemon-stats-by-type"))
                 .andExpect(status().isOk())
