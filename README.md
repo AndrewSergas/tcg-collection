@@ -4,7 +4,7 @@ A Spring Boot application for learning MongoDB queries through a Trading Card Ga
 
 ## Prerequisites
 
-- Java 25 or higher
+- Java 21 or higher
 - MongoDB installed and running locally on port 27017
 
 ## Setup
