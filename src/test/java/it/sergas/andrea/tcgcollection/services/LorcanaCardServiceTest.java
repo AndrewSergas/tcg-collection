@@ -23,62 +23,62 @@ class LorcanaCardServiceTest {
 
     @Mock private LorcanaCardMapper mapper;
     @Mock private LorcanaCardRepository repository;
-    @InjectMocks private LorcanaCardService service;
+    @InjectMocks private LorcanaCardService systemUnderTest;
 
     @Test
-    @DisplayName("Should find cards by ink color")
-    void shouldFindCardsByInkColor() {
+    @DisplayName("findByInkColor should find the Steel ink Mickey card")
+    void findByInkColor_shouldFindTheSteelInkMickey() {
         val entity = LorcanaCardFixtures.mickey();
         val dto = LorcanaCardDTOFixtures.mickey();
 
         when(repository.findByInkColor("Steel")).thenReturn(List.of(entity));
         when(mapper.toDTO(entity)).thenReturn(dto);
 
-        assertThat(service.findByInkColor("Steel")).containsExactly(dto);
+        assertThat(systemUnderTest.findByInkColor("Steel")).containsExactly(dto);
     }
 
     @Test
-    @DisplayName("Should return empty list when no cards found by ink color")
-    void shouldReturnEmptyListWhenNoCardsByInkColor() {
+    @DisplayName("findByInkColor should return an empty list when no cards are found by ink color")
+    void findByInkColor_shouldReturnEmptyList_whenNoCardsAreFoundByInkColor() {
         when(repository.findByInkColor("Ruby")).thenReturn(List.of());
-        assertThat(service.findByInkColor("Ruby")).isEmpty();
+        assertThat(systemUnderTest.findByInkColor("Ruby")).isEmpty();
     }
 
     @Test
-    @DisplayName("Should find cards by franchise title")
-    void shouldFindCardsByFranchiseTitle() {
+    @DisplayName("findByFranchiseTitle should find the Frozen franchise Elsa card")
+    void findByFranchiseTitle_shouldFindTheFrozenFranchiseElsa() {
         val entity = LorcanaCardFixtures.elsa();
         val dto = LorcanaCardDTOFixtures.elsa();
 
         when(repository.findByFranchiseTitle("Frozen")).thenReturn(List.of(entity));
         when(mapper.toDTO(entity)).thenReturn(dto);
 
-        assertThat(service.findByFranchiseTitle("Frozen")).containsExactly(dto);
+        assertThat(systemUnderTest.findByFranchiseTitle("Frozen")).containsExactly(dto);
     }
 
     @Test
-    @DisplayName("Should return empty list when no cards found by franchise title")
-    void shouldReturnEmptyListWhenNoCardsByFranchiseTitle() {
+    @DisplayName("findByFranchiseTitle should return an empty list when no cards are found by franchise title")
+    void findByFranchiseTitle_shouldReturnEmptyList_whenNoCardsAreFoundByFranchiseTitle() {
         when(repository.findByFranchiseTitle("Aladdin")).thenReturn(List.of());
-        assertThat(service.findByFranchiseTitle("Aladdin")).isEmpty();
+        assertThat(systemUnderTest.findByFranchiseTitle("Aladdin")).isEmpty();
     }
 
     @Test
-    @DisplayName("Should find all cards")
-    void shouldFindAllCards() {
+    @DisplayName("findAll should find all cards")
+    void findAll_shouldFindAllCards() {
         val entity = LorcanaCardFixtures.elsa();
         val dto = LorcanaCardDTOFixtures.elsa();
 
         when(repository.findAll()).thenReturn(List.of(entity));
         when(mapper.toDTO(entity)).thenReturn(dto);
 
-        assertThat(service.findAll()).containsExactly(dto);
+        assertThat(systemUnderTest.findAll()).containsExactly(dto);
     }
 
     @Test
-    @DisplayName("Should return empty list when no cards found")
-    void shouldReturnEmptyListWhenNoCards() {
+    @DisplayName("findAll should return an empty list when no cards are found")
+    void findAll_shouldReturnEmptyList_whenNoCardsAreFound() {
         when(repository.findAll()).thenReturn(List.of());
-        assertThat(service.findAll()).isEmpty();
+        assertThat(systemUnderTest.findAll()).isEmpty();
     }
 }

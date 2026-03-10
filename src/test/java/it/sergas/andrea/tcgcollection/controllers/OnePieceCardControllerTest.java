@@ -26,13 +26,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class OnePieceCardControllerTest {
 
     @Autowired private MockMvc mockMvc;
-    @MockitoBean private OnePieceCardService service;
+    @MockitoBean private OnePieceCardService systemUnderTest;
 
     @Test
-    @DisplayName("Should get all cards")
-    void shouldGetAllCards() throws Exception {
+    @DisplayName("getAllCards should return the Luffy card")
+    void getAllCards_shouldReturnTheLuffyCard() throws Exception {
         val dto = OnePieceCardDTOFixtures.luffy();
-        when(service.findAll()).thenReturn(List.of(dto));
+        when(systemUnderTest.findAll()).thenReturn(List.of(dto));
 
         mockMvc.perform(get("/api/onepiece"))
                 .andExpect(status().isOk())
@@ -41,9 +41,9 @@ class OnePieceCardControllerTest {
     }
 
     @Test
-    @DisplayName("Should return empty list when no cards")
-    void shouldReturnEmptyListWhenNoCards() throws Exception {
-        when(service.findAll()).thenReturn(List.of());
+    @DisplayName("getAllCards should return an empty list when no cards are found")
+    void getAllCards_shouldReturnEmptyList_whenNoCardsAreFound() throws Exception {
+        when(systemUnderTest.findAll()).thenReturn(List.of());
 
         mockMvc.perform(get("/api/onepiece"))
                 .andExpect(status().isOk())
@@ -51,10 +51,10 @@ class OnePieceCardControllerTest {
     }
 
     @Test
-    @DisplayName("Should find cards by color")
-    void shouldFindCardsByColor() throws Exception {
+    @DisplayName("findByColor should find the Red color Luffy card")
+    void findByColor_shouldFindTheRedColorLuffy() throws Exception {
         val dto = OnePieceCardDTOFixtures.luffy();
-        when(service.findByColor("Red")).thenReturn(List.of(dto));
+        when(systemUnderTest.findByColor("Red")).thenReturn(List.of(dto));
 
         mockMvc.perform(get("/api/onepiece/color/Red"))
                 .andExpect(status().isOk())
@@ -63,9 +63,9 @@ class OnePieceCardControllerTest {
     }
 
     @Test
-    @DisplayName("Should return empty list for non-existent color")
-    void shouldReturnEmptyListForNonExistentColor() throws Exception {
-        when(service.findByColor("Black")).thenReturn(List.of());
+    @DisplayName("findByColor should return an empty list when no cards are found by color")
+    void findByColor_shouldReturnEmptyList_whenNoCardsAreFoundByColor() throws Exception {
+        when(systemUnderTest.findByColor("Black")).thenReturn(List.of());
 
         mockMvc.perform(get("/api/onepiece/color/Black"))
                 .andExpect(status().isOk())
@@ -73,10 +73,10 @@ class OnePieceCardControllerTest {
     }
 
     @Test
-    @DisplayName("Should find cards by power greater than")
-    void shouldFindCardsByPowerGreaterThan() throws Exception {
+    @DisplayName("findByPowerGreaterThan should find the Luffy card with power greater than 4000")
+    void findByPowerGreaterThan_shouldFindLuffyWithPowerGreaterThan4000() throws Exception {
         val dto = OnePieceCardDTOFixtures.luffy();
-        when(service.findByPowerGreaterThan(4000)).thenReturn(List.of(dto));
+        when(systemUnderTest.findByPowerGreaterThan(4000)).thenReturn(List.of(dto));
 
         mockMvc.perform(get("/api/onepiece/power-greater-than/4000"))
                 .andExpect(status().isOk())
@@ -85,9 +85,9 @@ class OnePieceCardControllerTest {
     }
 
     @Test
-    @DisplayName("Should return empty list when no cards with power greater than")
-    void shouldReturnEmptyListWhenNoCardsByPowerGreaterThan() throws Exception {
-        when(service.findByPowerGreaterThan(99999)).thenReturn(List.of());
+    @DisplayName("findByPowerGreaterThan should return an empty list when no cards have power greater than threshold")
+    void findByPowerGreaterThan_shouldReturnEmptyList_whenNoCardsAboveThreshold() throws Exception {
+        when(systemUnderTest.findByPowerGreaterThan(99999)).thenReturn(List.of());
 
         mockMvc.perform(get("/api/onepiece/power-greater-than/99999"))
                 .andExpect(status().isOk())

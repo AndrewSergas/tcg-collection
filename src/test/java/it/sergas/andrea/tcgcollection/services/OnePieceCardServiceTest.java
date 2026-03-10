@@ -23,62 +23,62 @@ class OnePieceCardServiceTest {
 
     @Mock private OnePieceCardMapper mapper;
     @Mock private OnePieceCardRepository repository;
-    @InjectMocks private OnePieceCardService service;
+    @InjectMocks private OnePieceCardService systemUnderTest;
 
     @Test
-    @DisplayName("Should find cards by color")
-    void shouldFindCardsByColor() {
+    @DisplayName("findByColor should find the Red color Luffy card")
+    void findByColor_shouldFindTheRedColorLuffy() {
         val entity = OnePieceCardFixtures.luffy();
         val dto = OnePieceCardDTOFixtures.luffy();
 
         when(repository.findByColor("Red")).thenReturn(List.of(entity));
         when(mapper.toDTO(entity)).thenReturn(dto);
 
-        assertThat(service.findByColor("Red")).containsExactly(dto);
+        assertThat(systemUnderTest.findByColor("Red")).containsExactly(dto);
     }
 
     @Test
-    @DisplayName("Should return empty list when no cards found by color")
-    void shouldReturnEmptyListWhenNoCardsByColor() {
+    @DisplayName("findByColor should return an empty list when no cards are found by color")
+    void findByColor_shouldReturnEmptyList_whenNoCardsAreFoundByColor() {
         when(repository.findByColor("Black")).thenReturn(List.of());
-        assertThat(service.findByColor("Black")).isEmpty();
+        assertThat(systemUnderTest.findByColor("Black")).isEmpty();
     }
 
     @Test
-    @DisplayName("Should find cards by power greater than")
-    void shouldFindCardsByPowerGreaterThan() {
+    @DisplayName("findByPowerGreaterThan should find the Luffy card with power greater than 4000")
+    void findByPowerGreaterThan_shouldFindLuffyWithPowerGreaterThan4000() {
         val entity = OnePieceCardFixtures.luffy();
         val dto = OnePieceCardDTOFixtures.luffy();
 
         when(repository.findByPowerGreaterThan(4000)).thenReturn(List.of(entity));
         when(mapper.toDTO(entity)).thenReturn(dto);
 
-        assertThat(service.findByPowerGreaterThan(4000)).containsExactly(dto);
+        assertThat(systemUnderTest.findByPowerGreaterThan(4000)).containsExactly(dto);
     }
 
     @Test
-    @DisplayName("Should return empty list when no cards with power greater than")
-    void shouldReturnEmptyListWhenNoCardsByPowerGreaterThan() {
+    @DisplayName("findByPowerGreaterThan should return an empty list when no cards have power greater than threshold")
+    void findByPowerGreaterThan_shouldReturnEmptyList_whenNoCardsAboveThreshold() {
         when(repository.findByPowerGreaterThan(99999)).thenReturn(List.of());
-        assertThat(service.findByPowerGreaterThan(99999)).isEmpty();
+        assertThat(systemUnderTest.findByPowerGreaterThan(99999)).isEmpty();
     }
 
     @Test
-    @DisplayName("Should find all cards")
-    void shouldFindAllCards() {
+    @DisplayName("findAll should find all cards")
+    void findAll_shouldFindAllCards() {
         val entity = OnePieceCardFixtures.luffy();
         val dto = OnePieceCardDTOFixtures.luffy();
 
         when(repository.findAll()).thenReturn(List.of(entity));
         when(mapper.toDTO(entity)).thenReturn(dto);
 
-        assertThat(service.findAll()).containsExactly(dto);
+        assertThat(systemUnderTest.findAll()).containsExactly(dto);
     }
 
     @Test
-    @DisplayName("Should return empty list when no cards found")
-    void shouldReturnEmptyListWhenNoCards() {
+    @DisplayName("findAll should return an empty list when no cards are found")
+    void findAll_shouldReturnEmptyList_whenNoCardsAreFound() {
         when(repository.findAll()).thenReturn(List.of());
-        assertThat(service.findAll()).isEmpty();
+        assertThat(systemUnderTest.findAll()).isEmpty();
     }
 }

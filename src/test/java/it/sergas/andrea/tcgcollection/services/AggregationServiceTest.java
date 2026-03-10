@@ -21,26 +21,26 @@ import static org.mockito.Mockito.when;
 class AggregationServiceTest {
 
     @Mock private AggregationRepository repository;
-    @InjectMocks private AggregationService service;
+    @InjectMocks private AggregationService systemUnderTest;
 
     @Test
-    @DisplayName("Should count yugioh cards by type")
-    void shouldCountYugiohCardsByType() {
+    @DisplayName("countYugiohCardsByType should count Monster type cards")
+    void countYugiohCardsByType_shouldCountMonsterTypeCards() {
         val typeCount = TypeCount.builder().type("Monster").count(5L).build();
         when(repository.countYugiohCardsByType()).thenReturn(List.of(typeCount));
-        assertThat(service.countYugiohCardsByType()).containsExactly(typeCount);
+        assertThat(systemUnderTest.countYugiohCardsByType()).containsExactly(typeCount);
     }
 
     @Test
-    @DisplayName("Should return empty list when no yugioh cards")
-    void shouldReturnEmptyListWhenNoYugiohCards() {
+    @DisplayName("countYugiohCardsByType should return an empty list when no yugioh cards are found")
+    void countYugiohCardsByType_shouldReturnEmptyList_whenNoYugiohCardsAreFound() {
         when(repository.countYugiohCardsByType()).thenReturn(List.of());
-        assertThat(service.countYugiohCardsByType()).isEmpty();
+        assertThat(systemUnderTest.countYugiohCardsByType()).isEmpty();
     }
 
     @Test
-    @DisplayName("Should get pokemon stats by type")
-    void shouldGetPokemonStatsByType() {
+    @DisplayName("getPokemonStatsByType should get stats for Basic type")
+    void getPokemonStatsByType_shouldGetStatsForBasicType() {
         val stats = PokemonTypeStats.builder()
                 .pokemonType("Basic")
                 .cardCount(3L)
@@ -49,13 +49,13 @@ class AggregationServiceTest {
                 .build();
 
         when(repository.getPokemonStatsByType()).thenReturn(List.of(stats));
-        assertThat(service.getPokemonStatsByType()).containsExactly(stats);
+        assertThat(systemUnderTest.getPokemonStatsByType()).containsExactly(stats);
     }
 
     @Test
-    @DisplayName("Should return empty list when no pokemon stats")
-    void shouldReturnEmptyListWhenNoPokemonStats() {
+    @DisplayName("getPokemonStatsByType should return an empty list when no pokemon stats are found")
+    void getPokemonStatsByType_shouldReturnEmptyList_whenNoPokemonStatsAreFound() {
         when(repository.getPokemonStatsByType()).thenReturn(List.of());
-        assertThat(service.getPokemonStatsByType()).isEmpty();
+        assertThat(systemUnderTest.getPokemonStatsByType()).isEmpty();
     }
 }

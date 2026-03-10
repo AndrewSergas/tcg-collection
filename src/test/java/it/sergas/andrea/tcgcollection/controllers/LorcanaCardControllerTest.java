@@ -26,13 +26,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class LorcanaCardControllerTest {
 
     @Autowired private MockMvc mockMvc;
-    @MockitoBean private LorcanaCardService service;
+    @MockitoBean private LorcanaCardService systemUnderTest;
 
     @Test
-    @DisplayName("Should get all cards")
-    void shouldGetAllCards() throws Exception {
+    @DisplayName("getAllCards should return the Elsa card")
+    void getAllCards_shouldReturnTheElsaCard() throws Exception {
         val dto = LorcanaCardDTOFixtures.elsa();
-        when(service.findAll()).thenReturn(List.of(dto));
+        when(systemUnderTest.findAll()).thenReturn(List.of(dto));
 
         mockMvc.perform(get("/api/lorcana"))
                 .andExpect(status().isOk())
@@ -41,9 +41,9 @@ class LorcanaCardControllerTest {
     }
 
     @Test
-    @DisplayName("Should return empty list when no cards")
-    void shouldReturnEmptyListWhenNoCards() throws Exception {
-        when(service.findAll()).thenReturn(List.of());
+    @DisplayName("getAllCards should return an empty list when no cards are found")
+    void getAllCards_shouldReturnEmptyList_whenNoCardsAreFound() throws Exception {
+        when(systemUnderTest.findAll()).thenReturn(List.of());
 
         mockMvc.perform(get("/api/lorcana"))
                 .andExpect(status().isOk())
@@ -51,10 +51,10 @@ class LorcanaCardControllerTest {
     }
 
     @Test
-    @DisplayName("Should find cards by ink color")
-    void shouldFindCardsByInkColor() throws Exception {
+    @DisplayName("findByInkColor should find the Steel ink Mickey card")
+    void findByInkColor_shouldFindTheSteelInkMickey() throws Exception {
         val dto = LorcanaCardDTOFixtures.mickey();
-        when(service.findByInkColor("Steel")).thenReturn(List.of(dto));
+        when(systemUnderTest.findByInkColor("Steel")).thenReturn(List.of(dto));
 
         mockMvc.perform(get("/api/lorcana/ink-color/Steel"))
                 .andExpect(status().isOk())
@@ -63,9 +63,9 @@ class LorcanaCardControllerTest {
     }
 
     @Test
-    @DisplayName("Should return empty list for non-existent ink color")
-    void shouldReturnEmptyListForNonExistentInkColor() throws Exception {
-        when(service.findByInkColor("Ruby")).thenReturn(List.of());
+    @DisplayName("findByInkColor should return an empty list when no cards are found by ink color")
+    void findByInkColor_shouldReturnEmptyList_whenNoCardsAreFoundByInkColor() throws Exception {
+        when(systemUnderTest.findByInkColor("Ruby")).thenReturn(List.of());
 
         mockMvc.perform(get("/api/lorcana/ink-color/Ruby"))
                 .andExpect(status().isOk())
@@ -73,10 +73,10 @@ class LorcanaCardControllerTest {
     }
 
     @Test
-    @DisplayName("Should find cards by franchise title")
-    void shouldFindCardsByFranchiseTitle() throws Exception {
+    @DisplayName("findByFranchiseTitle should find the Frozen franchise Elsa card")
+    void findByFranchiseTitle_shouldFindTheFrozenFranchiseElsa() throws Exception {
         val dto = LorcanaCardDTOFixtures.elsa();
-        when(service.findByFranchiseTitle("Frozen")).thenReturn(List.of(dto));
+        when(systemUnderTest.findByFranchiseTitle("Frozen")).thenReturn(List.of(dto));
 
         mockMvc.perform(get("/api/lorcana/franchise/Frozen"))
                 .andExpect(status().isOk())
@@ -85,9 +85,9 @@ class LorcanaCardControllerTest {
     }
 
     @Test
-    @DisplayName("Should return empty list for non-existent franchise title")
-    void shouldReturnEmptyListForNonExistentFranchiseTitle() throws Exception {
-        when(service.findByFranchiseTitle("Aladdin")).thenReturn(List.of());
+    @DisplayName("findByFranchiseTitle should return an empty list when no cards are found by franchise title")
+    void findByFranchiseTitle_shouldReturnEmptyList_whenNoCardsAreFoundByFranchiseTitle() throws Exception {
+        when(systemUnderTest.findByFranchiseTitle("Aladdin")).thenReturn(List.of());
 
         mockMvc.perform(get("/api/lorcana/franchise/Aladdin"))
                 .andExpect(status().isOk())

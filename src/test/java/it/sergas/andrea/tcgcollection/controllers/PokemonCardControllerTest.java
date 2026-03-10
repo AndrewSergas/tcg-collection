@@ -26,13 +26,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class PokemonCardControllerTest {
 
     @Autowired private MockMvc mockMvc;
-    @MockitoBean private PokemonCardService service;
+    @MockitoBean private PokemonCardService systemUnderTest;
 
     @Test
-    @DisplayName("Should get all cards")
-    void shouldGetAllCards() throws Exception {
+    @DisplayName("getAllCards should return the Pikachu card")
+    void getAllCards_shouldReturnThePikachuCard() throws Exception {
         val dto = PokemonCardDTOFixtures.pikachu();
-        when(service.findAll()).thenReturn(List.of(dto));
+        when(systemUnderTest.findAll()).thenReturn(List.of(dto));
 
         mockMvc.perform(get("/api/pokemon"))
                 .andExpect(status().isOk())
@@ -41,9 +41,9 @@ class PokemonCardControllerTest {
     }
 
     @Test
-    @DisplayName("Should return empty list when no cards")
-    void shouldReturnEmptyListWhenNoCards() throws Exception {
-        when(service.findAll()).thenReturn(List.of());
+    @DisplayName("getAllCards should return an empty list when no cards are found")
+    void getAllCards_shouldReturnEmptyList_whenNoCardsAreFound() throws Exception {
+        when(systemUnderTest.findAll()).thenReturn(List.of());
 
         mockMvc.perform(get("/api/pokemon"))
                 .andExpect(status().isOk())
@@ -51,10 +51,10 @@ class PokemonCardControllerTest {
     }
 
     @Test
-    @DisplayName("Should find cards by rarity")
-    void shouldFindCardsByRarity() throws Exception {
+    @DisplayName("findByRarity should find the common Pikachu card")
+    void findByRarity_shouldFindTheCommonPikachu() throws Exception {
         val dto = PokemonCardDTOFixtures.pikachu();
-        when(service.findByRarity("Common")).thenReturn(List.of(dto));
+        when(systemUnderTest.findByRarity("Common")).thenReturn(List.of(dto));
 
         mockMvc.perform(get("/api/pokemon/rarity/Common"))
                 .andExpect(status().isOk())
@@ -63,9 +63,9 @@ class PokemonCardControllerTest {
     }
 
     @Test
-    @DisplayName("Should return empty list for non-existent rarity")
-    void shouldReturnEmptyListForNonExistentRarity() throws Exception {
-        when(service.findByRarity("Ultra Rare")).thenReturn(List.of());
+    @DisplayName("findByRarity should return an empty list when no cards are found by rarity")
+    void findByRarity_shouldReturnEmptyList_whenNoCardsAreFoundByRarity() throws Exception {
+        when(systemUnderTest.findByRarity("Ultra Rare")).thenReturn(List.of());
 
         mockMvc.perform(get("/api/pokemon/rarity/Ultra Rare"))
                 .andExpect(status().isOk())
@@ -73,10 +73,10 @@ class PokemonCardControllerTest {
     }
 
     @Test
-    @DisplayName("Should find cards by type")
-    void shouldFindCardsByType() throws Exception {
+    @DisplayName("findByType should find the Lightning type Pikachu card")
+    void findByType_shouldFindTheLightningTypePikachu() throws Exception {
         val dto = PokemonCardDTOFixtures.pikachu();
-        when(service.findByType("Lightning")).thenReturn(List.of(dto));
+        when(systemUnderTest.findByType("Lightning")).thenReturn(List.of(dto));
 
         mockMvc.perform(get("/api/pokemon/type/Lightning"))
                 .andExpect(status().isOk())
@@ -85,9 +85,9 @@ class PokemonCardControllerTest {
     }
 
     @Test
-    @DisplayName("Should return empty list for non-existent type")
-    void shouldReturnEmptyListForNonExistentType() throws Exception {
-        when(service.findByType("Dragon")).thenReturn(List.of());
+    @DisplayName("findByType should return an empty list when no cards are found by type")
+    void findByType_shouldReturnEmptyList_whenNoCardsAreFoundByType() throws Exception {
+        when(systemUnderTest.findByType("Dragon")).thenReturn(List.of());
 
         mockMvc.perform(get("/api/pokemon/type/Dragon"))
                 .andExpect(status().isOk())
@@ -95,10 +95,10 @@ class PokemonCardControllerTest {
     }
 
     @Test
-    @DisplayName("Should find cards with attacks")
-    void shouldFindCardsWithAttacks() throws Exception {
+    @DisplayName("findCardsWithAttacks should find the Pikachu card with attacks")
+    void findCardsWithAttacks_shouldFindThePikachuCardWithAttacks() throws Exception {
         val dto = PokemonCardDTOFixtures.pikachu();
-        when(service.findCardsWithAttacks()).thenReturn(List.of(dto));
+        when(systemUnderTest.findCardsWithAttacks()).thenReturn(List.of(dto));
 
         mockMvc.perform(get("/api/pokemon/with-attacks"))
                 .andExpect(status().isOk())
@@ -107,9 +107,9 @@ class PokemonCardControllerTest {
     }
 
     @Test
-    @DisplayName("Should return empty list when no cards with attacks")
-    void shouldReturnEmptyListWhenNoCardsWithAttacks() throws Exception {
-        when(service.findCardsWithAttacks()).thenReturn(List.of());
+    @DisplayName("findCardsWithAttacks should return an empty list when no cards have attacks")
+    void findCardsWithAttacks_shouldReturnEmptyList_whenNoCardsHaveAttacks() throws Exception {
+        when(systemUnderTest.findCardsWithAttacks()).thenReturn(List.of());
 
         mockMvc.perform(get("/api/pokemon/with-attacks"))
                 .andExpect(status().isOk())

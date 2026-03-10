@@ -26,13 +26,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class YugiohCardControllerTest {
 
     @Autowired private MockMvc mockMvc;
-    @MockitoBean private YugiohCardService service;
+    @MockitoBean private YugiohCardService systemUnderTest;
 
     @Test
-    @DisplayName("Should get all cards")
-    void shouldGetAllCards() throws Exception {
+    @DisplayName("getAllCards should return the Dark Magician card")
+    void getAllCards_shouldReturnTheDarkMagicianCard() throws Exception {
         val dto = YugiohCardDTOFixtures.darkMagician();
-        when(service.findAll()).thenReturn(List.of(dto));
+        when(systemUnderTest.findAll()).thenReturn(List.of(dto));
 
         mockMvc.perform(get("/api/yugioh"))
                 .andExpect(status().isOk())
@@ -41,9 +41,9 @@ class YugiohCardControllerTest {
     }
 
     @Test
-    @DisplayName("Should return empty list when no cards")
-    void shouldReturnEmptyListWhenNoCards() throws Exception {
-        when(service.findAll()).thenReturn(List.of());
+    @DisplayName("getAllCards should return an empty list when no cards are found")
+    void getAllCards_shouldReturnEmptyList_whenNoCardsAreFound() throws Exception {
+        when(systemUnderTest.findAll()).thenReturn(List.of());
 
         mockMvc.perform(get("/api/yugioh"))
                 .andExpect(status().isOk())
@@ -51,10 +51,10 @@ class YugiohCardControllerTest {
     }
 
     @Test
-    @DisplayName("Should find cards by card type")
-    void shouldFindCardsByCardType() throws Exception {
+    @DisplayName("findByCardType should find the Monster type Dark Magician card")
+    void findByCardType_shouldFindTheMonsterTypeDarkMagician() throws Exception {
         val dto = YugiohCardDTOFixtures.darkMagician();
-        when(service.findByCardType("Monster")).thenReturn(List.of(dto));
+        when(systemUnderTest.findByCardType("Monster")).thenReturn(List.of(dto));
 
         mockMvc.perform(get("/api/yugioh/card-type/Monster"))
                 .andExpect(status().isOk())
@@ -63,9 +63,9 @@ class YugiohCardControllerTest {
     }
 
     @Test
-    @DisplayName("Should return empty list for non-existent card type")
-    void shouldReturnEmptyListForNonExistentCardType() throws Exception {
-        when(service.findByCardType("Ritual")).thenReturn(List.of());
+    @DisplayName("findByCardType should return an empty list when no cards are found by card type")
+    void findByCardType_shouldReturnEmptyList_whenNoCardsAreFoundByCardType() throws Exception {
+        when(systemUnderTest.findByCardType("Ritual")).thenReturn(List.of());
 
         mockMvc.perform(get("/api/yugioh/card-type/Ritual"))
                 .andExpect(status().isOk())
@@ -73,10 +73,10 @@ class YugiohCardControllerTest {
     }
 
     @Test
-    @DisplayName("Should find cards by attack greater than")
-    void shouldFindCardsByAttackGreaterThan() throws Exception {
+    @DisplayName("findByAttackGreaterThan should find the Blue-Eyes White Dragon card with attack greater than 2000")
+    void findByAttackGreaterThan_shouldFindBlueEyesWithAttackGreaterThan2000() throws Exception {
         val dto = YugiohCardDTOFixtures.blueEyesWhiteDragon();
-        when(service.findByAttackGreaterThan(2000)).thenReturn(List.of(dto));
+        when(systemUnderTest.findByAttackGreaterThan(2000)).thenReturn(List.of(dto));
 
         mockMvc.perform(get("/api/yugioh/attack-greater-than/2000"))
                 .andExpect(status().isOk())
@@ -85,9 +85,9 @@ class YugiohCardControllerTest {
     }
 
     @Test
-    @DisplayName("Should return empty list when no cards with attack greater than")
-    void shouldReturnEmptyListWhenNoCardsByAttackGreaterThan() throws Exception {
-        when(service.findByAttackGreaterThan(9999)).thenReturn(List.of());
+    @DisplayName("findByAttackGreaterThan should return an empty list when no cards have attack greater than threshold")
+    void findByAttackGreaterThan_shouldReturnEmptyList_whenNoCardsAboveThreshold() throws Exception {
+        when(systemUnderTest.findByAttackGreaterThan(9999)).thenReturn(List.of());
 
         mockMvc.perform(get("/api/yugioh/attack-greater-than/9999"))
                 .andExpect(status().isOk())
@@ -95,10 +95,10 @@ class YugiohCardControllerTest {
     }
 
     @Test
-    @DisplayName("Should find cards with defense greater than attack")
-    void shouldFindCardsWithDefenseGreaterThanAttack() throws Exception {
+    @DisplayName("findCardsWithDefenseGreaterThanAttack should find the Wall of Illusion card")
+    void findCardsWithDefenseGreaterThanAttack_shouldFindWallOfIllusion() throws Exception {
         val dto = YugiohCardDTOFixtures.wallOfIllusion();
-        when(service.findCardsWithDefenseGreaterThanAttack()).thenReturn(List.of(dto));
+        when(systemUnderTest.findCardsWithDefenseGreaterThanAttack()).thenReturn(List.of(dto));
 
         mockMvc.perform(get("/api/yugioh/defense-greater-than-attack"))
                 .andExpect(status().isOk())
@@ -107,9 +107,9 @@ class YugiohCardControllerTest {
     }
 
     @Test
-    @DisplayName("Should return empty list when no cards with defense greater than attack")
-    void shouldReturnEmptyListWhenNoCardsWithDefenseGreaterThanAttack() throws Exception {
-        when(service.findCardsWithDefenseGreaterThanAttack()).thenReturn(List.of());
+    @DisplayName("findCardsWithDefenseGreaterThanAttack should return an empty list when no cards have defense greater than attack")
+    void findCardsWithDefenseGreaterThanAttack_shouldReturnEmptyList_whenNoCardsFound() throws Exception {
+        when(systemUnderTest.findCardsWithDefenseGreaterThanAttack()).thenReturn(List.of());
 
         mockMvc.perform(get("/api/yugioh/defense-greater-than-attack"))
                 .andExpect(status().isOk())

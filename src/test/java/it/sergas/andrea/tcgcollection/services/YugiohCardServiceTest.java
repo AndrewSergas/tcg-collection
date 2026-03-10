@@ -23,81 +23,81 @@ class YugiohCardServiceTest {
 
     @Mock private YugiohCardMapper mapper;
     @Mock private YugiohCardRepository repository;
-    @InjectMocks private YugiohCardService service;
+    @InjectMocks private YugiohCardService systemUnderTest;
 
     @Test
-    @DisplayName("Should find cards by card type")
-    void shouldFindCardsByCardType() {
+    @DisplayName("findByCardType should find the Monster type Dark Magician card")
+    void findByCardType_shouldFindTheMonsterTypeDarkMagician() {
         val entity = YugiohCardFixtures.darkMagician();
         val dto = YugiohCardDTOFixtures.darkMagician();
 
         when(repository.findByCardType("Monster")).thenReturn(List.of(entity));
         when(mapper.toDTO(entity)).thenReturn(dto);
 
-        assertThat(service.findByCardType("Monster")).containsExactly(dto);
+        assertThat(systemUnderTest.findByCardType("Monster")).containsExactly(dto);
     }
 
     @Test
-    @DisplayName("Should return empty list when no cards found by card type")
-    void shouldReturnEmptyListWhenNoCardsByCardType() {
+    @DisplayName("findByCardType should return an empty list when no cards are found by card type")
+    void findByCardType_shouldReturnEmptyList_whenNoCardsAreFoundByCardType() {
         when(repository.findByCardType("Ritual")).thenReturn(List.of());
-        assertThat(service.findByCardType("Ritual")).isEmpty();
+        assertThat(systemUnderTest.findByCardType("Ritual")).isEmpty();
     }
 
     @Test
-    @DisplayName("Should find cards by attack greater than")
-    void shouldFindCardsByAttackGreaterThan() {
+    @DisplayName("findByAttackGreaterThan should find the Blue-Eyes White Dragon card with attack greater than 2000")
+    void findByAttackGreaterThan_shouldFindBlueEyesWithAttackGreaterThan2000() {
         val entity = YugiohCardFixtures.blueEyesWhiteDragon();
         val dto = YugiohCardDTOFixtures.blueEyesWhiteDragon();
 
         when(repository.findByAttackGreaterThan(2000)).thenReturn(List.of(entity));
         when(mapper.toDTO(entity)).thenReturn(dto);
 
-        assertThat(service.findByAttackGreaterThan(2000)).containsExactly(dto);
+        assertThat(systemUnderTest.findByAttackGreaterThan(2000)).containsExactly(dto);
     }
 
     @Test
-    @DisplayName("Should return empty list when no cards with attack greater than")
-    void shouldReturnEmptyListWhenNoCardsByAttackGreaterThan() {
+    @DisplayName("findByAttackGreaterThan should return an empty list when no cards have attack greater than threshold")
+    void findByAttackGreaterThan_shouldReturnEmptyList_whenNoCardsAboveThreshold() {
         when(repository.findByAttackGreaterThan(9999)).thenReturn(List.of());
-        assertThat(service.findByAttackGreaterThan(9999)).isEmpty();
+        assertThat(systemUnderTest.findByAttackGreaterThan(9999)).isEmpty();
     }
 
     @Test
-    @DisplayName("Should find cards with defense greater than attack")
-    void shouldFindCardsWithDefenseGreaterThanAttack() {
+    @DisplayName("findCardsWithDefenseGreaterThanAttack should find the Wall of Illusion card")
+    void findCardsWithDefenseGreaterThanAttack_shouldFindWallOfIllusion() {
         val entity = YugiohCardFixtures.wallOfIllusion();
         val dto = YugiohCardDTOFixtures.wallOfIllusion();
 
         when(repository.findCardsWithDefenseGreaterThanAttack()).thenReturn(List.of(entity));
         when(mapper.toDTO(entity)).thenReturn(dto);
 
-        assertThat(service.findCardsWithDefenseGreaterThanAttack()).containsExactly(dto);
+        assertThat(systemUnderTest.findCardsWithDefenseGreaterThanAttack()).containsExactly(dto);
     }
 
     @Test
-    @DisplayName("Should return empty list when no cards with defense greater than attack")
-    void shouldReturnEmptyListWhenNoCardsWithDefenseGreaterThanAttack() {
+    @DisplayName("findCardsWithDefenseGreaterThanAttack should return an empty list when no cards have defense greater than attack")
+    void findCardsWithDefenseGreaterThanAttack_shouldReturnEmptyList_whenNoCardsFound() {
         when(repository.findCardsWithDefenseGreaterThanAttack()).thenReturn(List.of());
-        assertThat(service.findCardsWithDefenseGreaterThanAttack()).isEmpty();
+        assertThat(systemUnderTest.findCardsWithDefenseGreaterThanAttack()).isEmpty();
     }
 
     @Test
-    @DisplayName("Should find all cards")
-    void shouldFindAllCards() {
+    @DisplayName("findAll should find all cards")
+    void findAll_shouldFindAllCards() {
         val entity = YugiohCardFixtures.darkMagician();
         val dto = YugiohCardDTOFixtures.darkMagician();
 
         when(repository.findAll()).thenReturn(List.of(entity));
         when(mapper.toDTO(entity)).thenReturn(dto);
 
-        assertThat(service.findAll()).containsExactly(dto);
+        assertThat(systemUnderTest.findAll()).containsExactly(dto);
     }
 
     @Test
-    @DisplayName("Should return empty list when no cards found")
-    void shouldReturnEmptyListWhenNoCards() {
+    @DisplayName("findAll should return an empty list when no cards are found")
+    void findAll_shouldReturnEmptyList_whenNoCardsAreFound() {
         when(repository.findAll()).thenReturn(List.of());
-        assertThat(service.findAll()).isEmpty();
+        assertThat(systemUnderTest.findAll()).isEmpty();
     }
 }

@@ -23,81 +23,81 @@ class MagicCardServiceTest {
 
     @Mock private MagicCardMapper mapper;
     @Mock private MagicCardRepository repository;
-    @InjectMocks private MagicCardService service;
+    @InjectMocks private MagicCardService systemUnderTest;
 
     @Test
-    @DisplayName("Should find cards by type")
-    void shouldFindCardsByType() {
+    @DisplayName("findByType should find the Instant type Lightning Bolt card")
+    void findByType_shouldFindTheInstantTypeLightningBolt() {
         val entity = MagicCardFixtures.lightningBolt();
         val dto = MagicCardDTOFixtures.lightningBolt();
 
         when(repository.findByType("Instant")).thenReturn(List.of(entity));
         when(mapper.toDTO(entity)).thenReturn(dto);
 
-        assertThat(service.findByType("Instant")).containsExactly(dto);
+        assertThat(systemUnderTest.findByType("Instant")).containsExactly(dto);
     }
 
     @Test
-    @DisplayName("Should return empty list when no cards found by type")
-    void shouldReturnEmptyListWhenNoCardsByType() {
+    @DisplayName("findByType should return an empty list when no cards are found by type")
+    void findByType_shouldReturnEmptyList_whenNoCardsAreFoundByType() {
         when(repository.findByType("Planeswalker")).thenReturn(List.of());
-        assertThat(service.findByType("Planeswalker")).isEmpty();
+        assertThat(systemUnderTest.findByType("Planeswalker")).isEmpty();
     }
 
     @Test
-    @DisplayName("Should find cards by color")
-    void shouldFindCardsByColor() {
+    @DisplayName("findByColor should find the Red color Lightning Bolt card")
+    void findByColor_shouldFindTheRedColorLightningBolt() {
         val entity = MagicCardFixtures.lightningBolt();
         val dto = MagicCardDTOFixtures.lightningBolt();
 
         when(repository.findByColor("Red")).thenReturn(List.of(entity));
         when(mapper.toDTO(entity)).thenReturn(dto);
 
-        assertThat(service.findByColor("Red")).containsExactly(dto);
+        assertThat(systemUnderTest.findByColor("Red")).containsExactly(dto);
     }
 
     @Test
-    @DisplayName("Should return empty list when no cards found by color")
-    void shouldReturnEmptyListWhenNoCardsByColor() {
+    @DisplayName("findByColor should return an empty list when no cards are found by color")
+    void findByColor_shouldReturnEmptyList_whenNoCardsAreFoundByColor() {
         when(repository.findByColor("Purple")).thenReturn(List.of());
-        assertThat(service.findByColor("Purple")).isEmpty();
+        assertThat(systemUnderTest.findByColor("Purple")).isEmpty();
     }
 
     @Test
-    @DisplayName("Should find cards by text containing")
-    void shouldFindCardsByTextContaining() {
+    @DisplayName("findByTextContaining should find cards containing 'damage' text")
+    void findByTextContaining_shouldFindCardsContainingDamageText() {
         val entity = MagicCardFixtures.lightningBolt();
         val dto = MagicCardDTOFixtures.lightningBolt();
 
         when(repository.findByTextContaining("damage")).thenReturn(List.of(entity));
         when(mapper.toDTO(entity)).thenReturn(dto);
 
-        assertThat(service.findByTextContaining("damage")).containsExactly(dto);
+        assertThat(systemUnderTest.findByTextContaining("damage")).containsExactly(dto);
     }
 
     @Test
-    @DisplayName("Should return empty list when no cards found by text containing")
-    void shouldReturnEmptyListWhenNoCardsByTextContaining() {
+    @DisplayName("findByTextContaining should return an empty list when no cards are found by text")
+    void findByTextContaining_shouldReturnEmptyList_whenNoCardsAreFoundByText() {
         when(repository.findByTextContaining("nonexistent")).thenReturn(List.of());
-        assertThat(service.findByTextContaining("nonexistent")).isEmpty();
+        assertThat(systemUnderTest.findByTextContaining("nonexistent")).isEmpty();
     }
 
     @Test
-    @DisplayName("Should find all cards")
-    void shouldFindAllCards() {
+    @DisplayName("findAll should find all cards")
+    void findAll_shouldFindAllCards() {
         val entity = MagicCardFixtures.lightningBolt();
         val dto = MagicCardDTOFixtures.lightningBolt();
 
         when(repository.findAll()).thenReturn(List.of(entity));
         when(mapper.toDTO(entity)).thenReturn(dto);
 
-        assertThat(service.findAll()).containsExactly(dto);
+        assertThat(systemUnderTest.findAll()).containsExactly(dto);
     }
 
     @Test
-    @DisplayName("Should return empty list when no cards found")
-    void shouldReturnEmptyListWhenNoCards() {
+    @DisplayName("findAll should return an empty list when no cards are found")
+    void findAll_shouldReturnEmptyList_whenNoCardsAreFound() {
         when(repository.findAll()).thenReturn(List.of());
-        assertThat(service.findAll()).isEmpty();
+        assertThat(systemUnderTest.findAll()).isEmpty();
     }
 }

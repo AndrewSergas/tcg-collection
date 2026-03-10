@@ -27,13 +27,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class AggregationControllerTest {
 
     @Autowired private MockMvc mockMvc;
-    @MockitoBean private AggregationService service;
+    @MockitoBean private AggregationService systemUnderTest;
 
     @Test
-    @DisplayName("Should count yugioh cards by type")
-    void shouldCountYugiohCardsByType() throws Exception {
+    @DisplayName("countYugiohCardsByType should count Monster type cards")
+    void countYugiohCardsByType_shouldCountMonsterTypeCards() throws Exception {
         val typeCount = TypeCount.builder().type("Monster").count(5L).build();
-        when(service.countYugiohCardsByType()).thenReturn(List.of(typeCount));
+        when(systemUnderTest.countYugiohCardsByType()).thenReturn(List.of(typeCount));
 
         mockMvc.perform(get("/api/aggregations/yugioh-cards-by-type"))
                 .andExpect(status().isOk())
@@ -42,9 +42,9 @@ class AggregationControllerTest {
     }
 
     @Test
-    @DisplayName("Should return empty list when no yugioh cards by type")
-    void shouldReturnEmptyListWhenNoYugiohCardsByType() throws Exception {
-        when(service.countYugiohCardsByType()).thenReturn(List.of());
+    @DisplayName("countYugiohCardsByType should return an empty list when no yugioh cards are found")
+    void countYugiohCardsByType_shouldReturnEmptyList_whenNoYugiohCardsAreFound() throws Exception {
+        when(systemUnderTest.countYugiohCardsByType()).thenReturn(List.of());
 
         mockMvc.perform(get("/api/aggregations/yugioh-cards-by-type"))
                 .andExpect(status().isOk())
@@ -52,8 +52,8 @@ class AggregationControllerTest {
     }
 
     @Test
-    @DisplayName("Should get pokemon stats by type")
-    void shouldGetPokemonStatsByType() throws Exception {
+    @DisplayName("getPokemonStatsByType should get stats for Basic type")
+    void getPokemonStatsByType_shouldGetStatsForBasicType() throws Exception {
         val stats = PokemonTypeStats.builder()
                 .pokemonType("Basic")
                 .cardCount(3L)
@@ -61,7 +61,7 @@ class AggregationControllerTest {
                 .maxAttacks(2)
                 .build();
 
-        when(service.getPokemonStatsByType()).thenReturn(List.of(stats));
+        when(systemUnderTest.getPokemonStatsByType()).thenReturn(List.of(stats));
 
         mockMvc.perform(get("/api/aggregations/pokemon-stats-by-type"))
                 .andExpect(status().isOk())
@@ -72,9 +72,9 @@ class AggregationControllerTest {
     }
 
     @Test
-    @DisplayName("Should return empty list when no pokemon stats")
-    void shouldReturnEmptyListWhenNoPokemonStats() throws Exception {
-        when(service.getPokemonStatsByType()).thenReturn(List.of());
+    @DisplayName("getPokemonStatsByType should return an empty list when no pokemon stats are found")
+    void getPokemonStatsByType_shouldReturnEmptyList_whenNoPokemonStatsAreFound() throws Exception {
+        when(systemUnderTest.getPokemonStatsByType()).thenReturn(List.of());
 
         mockMvc.perform(get("/api/aggregations/pokemon-stats-by-type"))
                 .andExpect(status().isOk())
