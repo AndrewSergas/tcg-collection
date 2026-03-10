@@ -17,7 +17,7 @@ public class TcgCollectionApplication {
      *
      * @param args command-line arguments
      */
-    static void main(final String[] args) {
+    public static void main(final String[] args) {
         run(TcgCollectionApplication.class, args);
     }
 }
