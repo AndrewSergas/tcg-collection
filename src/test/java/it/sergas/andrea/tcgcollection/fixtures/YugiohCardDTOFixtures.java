@@ -80,9 +80,27 @@ public final class YugiohCardDTOFixtures {
                 .build();
     }
 
-    public static YugiohCardDTO mirrorForce() {
+    public static YugiohCardDTO shieldWall() {
         return YugiohCardDTO.builder()
                 .id("000000000000000000000005")
+                .name("Shield Wall")
+                .rarity("Common")
+                .setName("Starter Deck")
+                .setCode("SDK")
+                .cardNumber("030")
+                .cardType("Monster")
+                .attribute("Earth")
+                .monsterType("Warrior")
+                .level(5)
+                .attack(500)
+                .defense(2000)
+                .description("A defensive monster with high defense.")
+                .build();
+    }
+
+    public static YugiohCardDTO mirrorForce() {
+        return YugiohCardDTO.builder()
+                .id("000000000000000000000006")
                 .name("Mirror Force")
                 .rarity("Ultra Rare")
                 .setName("Metal Raiders")
@@ -95,7 +113,7 @@ public final class YugiohCardDTOFixtures {
 
     public static YugiohCardDTO potOfGreed() {
         return YugiohCardDTO.builder()
-                .id("000000000000000000000006")
+                .id("000000000000000000000007")
                 .name("Pot of Greed")
                 .rarity("Rare")
                 .setName("Legend of Blue Eyes White Dragon")

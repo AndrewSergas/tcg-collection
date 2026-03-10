@@ -56,4 +56,87 @@ public final class PokemonCardDTOFixtures {
                 .retreatCost("3")
                 .build();
     }
+
+    public static PokemonCardDTO mewtwo() {
+        val psychic = PokemonCardDTO.AttackDTO.builder().name("Psychic").damage("10+").build();
+        val barrier = PokemonCardDTO.AttackDTO.builder().name("Barrier").damage("30").build();
+        val weakness = PokemonCardDTO.WeaknessDTO.builder().type("Psychic").value("×2").build();
+
+        return PokemonCardDTO.builder()
+                .id("000000000000000000000003")
+                .name("Mewtwo")
+                .rarity("Rare")
+                .setName("Base Set")
+                .setCode("BS")
+                .cardNumber("010")
+                .types(List.of("Psychic"))
+                .hp("60")
+                .pokemonType("Basic")
+                .attacks(List.of(psychic, barrier))
+                .weaknesses(List.of(weakness))
+                .resistances(List.of())
+                .retreatCost("3")
+                .build();
+    }
+
+    public static PokemonCardDTO bulbasaur() {
+        val leechSeed = PokemonCardDTO.AttackDTO.builder().name("Leech Seed").damage("20").build();
+        val weakness = PokemonCardDTO.WeaknessDTO.builder().type("Fire").value("×2").build();
+
+        return PokemonCardDTO.builder()
+                .id("000000000000000000000004")
+                .name("Bulbasaur")
+                .rarity("Common")
+                .setName("Base Set")
+                .setCode("BS")
+                .cardNumber("044")
+                .types(List.of("Grass"))
+                .hp("40")
+                .pokemonType("Basic")
+                .attacks(List.of(leechSeed))
+                .weaknesses(List.of(weakness))
+                .resistances(List.of())
+                .retreatCost("1")
+                .build();
+    }
+
+    public static PokemonCardDTO squirtle() {
+        val bubble = PokemonCardDTO.AttackDTO.builder().name("Bubble").damage("10").build();
+        val withdraw = PokemonCardDTO.AttackDTO.builder().name("Withdraw").damage("").build();
+        val weakness = PokemonCardDTO.WeaknessDTO.builder().type("Lightning").value("×2").build();
+
+        return PokemonCardDTO.builder()
+                .id("000000000000000000000005")
+                .name("Squirtle")
+                .rarity("Common")
+                .setName("Base Set")
+                .setCode("BS")
+                .cardNumber("063")
+                .types(List.of("Water"))
+                .hp("40")
+                .pokemonType("Basic")
+                .attacks(List.of(bubble, withdraw))
+                .weaknesses(List.of(weakness))
+                .resistances(List.of())
+                .retreatCost("1")
+                .build();
+    }
+
+    public static PokemonCardDTO energyCard() {
+        return PokemonCardDTO.builder()
+                .id("000000000000000000000006")
+                .name("Double Colorless Energy")
+                .rarity("Uncommon")
+                .setName("Base Set")
+                .setCode("BS")
+                .cardNumber("096")
+                .types(List.of())
+                .hp(null)
+                .pokemonType("Energy")
+                .attacks(List.of())
+                .weaknesses(List.of())
+                .resistances(List.of())
+                .retreatCost(null)
+                .build();
+    }
 }
